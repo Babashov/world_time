@@ -50,7 +50,7 @@ class _ChooseLocationState extends State<ChooseLocation> {
         return Scaffold(
           backgroundColor: Colors.blue[800],
           body: Center(
-            child: SpinKitSpinningCircle(
+            child: SpinKitCircle(
               color: Colors.white,
               size: 50.0,
             ),
