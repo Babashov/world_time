@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:world_time/services/world_time.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class ChooseLocation extends StatefulWidget {
   @override
@@ -7,6 +8,8 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+
+  bool isClicked = false;
 
   List<WorldTime> locations = [
     WorldTime(url: 'Asia/Baku', location: 'Baku', flag: 'az.png'),
@@ -22,6 +25,9 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   void updateTime(index) async{
     WorldTime instance = locations[index];
+    setState(() {
+      isClicked = true;
+    });
     await instance.getTime();
     Navigator.pop(context,{
       'location':instance.location,
@@ -39,6 +45,18 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   @override
   Widget build(BuildContext context) {
+    if(isClicked)
+      {
+        return Scaffold(
+          backgroundColor: Colors.blue[800],
+          body: Center(
+            child: SpinKitSpinningCircle(
+              color: Colors.white,
+              size: 50.0,
+            ),
+          )
+        );
+      }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -46,10 +64,10 @@ class _ChooseLocationState extends State<ChooseLocation> {
         title: Text(
           'Location',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2.0
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 2.0
           ),
         ),
       ),
